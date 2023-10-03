@@ -35,10 +35,8 @@ export class AppComponent {
 
   uploadFile(preSignedUrl: string) {
     if (this.selectedFile) {
-      const headers = new HttpHeaders().set('Content-Type', 'multipart/form-data');
-      const formData = new FormData();
-      formData.append('file', this.selectedFile, this.selectedFile.name);
-      this.http.put(preSignedUrl, formData, { headers }).pipe().subscribe(resp => {
+      const headers = new HttpHeaders().set('Content-Type', this.selectedFile.type);
+      this.http.put(preSignedUrl, this.selectedFile, { headers }).pipe().subscribe(resp => {
         console.log('Success!', resp)
       })
     }
